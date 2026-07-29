@@ -72,7 +72,7 @@
         <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">04</span><div class="p-node"></div><span class="p-label">ML re-ranking</span><span class="p-sub">Sentence-BERT re-rank</span></div>
         <div class="p-stage"><span class="p-num">05</span><div class="p-node"></div><span class="p-label">Serve &lt;500ms</span><span class="p-sub">Cloud-scale serving</span></div>
       </div>
-      <p class="note" style="margin-top:20px;">Incoming queries are parsed with NER-based intent modeling to separate brand, product type, and spec constraints from free text. Retrieval then fans out in parallel across two arms — a lexical BM25 pass and a vector KNN pass over semantic embeddings — and both result sets are merged into a single candidate pool before a Sentence-BERT cross-encoder re-ranks them for relevance, all served in under 500ms at scale. RAGAS-based evaluation (faithfulness, context precision/recall) validated every iteration before rollout. Net effect: an 82% NDCG relevance lift and latency cut from 2s to 500ms, at 50M+ queries/day.</p>
+      <p class="note" style="margin-top:20px;">Incoming queries are parsed with NER-based intent modeling to separate brand, product type, and spec constraints from free text. Retrieval then fans out in parallel across two arms, a lexical BM25 pass and a vector KNN pass over semantic embeddings, and both result sets are merged into a single candidate pool before a Sentence-BERT cross-encoder re-ranks them for relevance, all served in under 500ms at scale. RAGAS-based evaluation (faithfulness, context precision/recall) validated every iteration before rollout. Net effect: an 82% NDCG relevance lift and latency cut from 2s to 500ms, at 50M+ queries/day.</p>
 
       <h4 style="margin-top:26px;">Data ingestion workflow</h4>
       <div class="pipeline" aria-hidden="true">
@@ -96,7 +96,7 @@
         <h3>Agentic AI shopping copilot</h3>
         <span class="tag">SAP · 0-to-1</span>
       </div>
-      <p class="desc">Buyers needed more than search results — they needed a system that could act. Led the 0-to-1 build of an agentic copilot that autonomously identifies better products, prices, and alternatives.</p>
+      <p class="desc">Buyers needed more than search results, they needed a system that could act. Led the 0-to-1 build of an agentic copilot that autonomously identifies better products, prices, and alternatives.</p>
       <div class="proj-media" data-demo-video>
         <video controls preload="metadata" muted playsinline poster="professional/agentic-shopping-copilot/media/poster.jpg">
           <source src="professional/agentic-shopping-copilot/media/demo.mp4" type="video/mp4">
@@ -201,8 +201,26 @@
             </video>
           </div>
           <h4>What it does</h4>
-          <p class="note">Given a text prompt plus one or more reference images, generates new images that combine the prompted scene with the visual identity from the references — for example, a specific person, product, or art style — using LoRA adapters layered onto a base diffusion model rather than fine-tuning the whole network.</p>
-          <p class="note" style="margin-top:14px;">More detail (architecture, training data, and sample outputs) can be added here — let me know what you'd like to feature.</p>
+          <p class="note">A reference-guided text-to-image tool built on Stable Diffusion: given one or more reference images of a subject, style, or object, it trains lightweight LoRA (Low-Rank Adaptation) weights on top of a frozen base diffusion model instead of fine-tuning the whole network. Those adapters capture the visual identity of the reference — a specific person, product, or art style — and get layered back onto the base model at generation time. A new text prompt then drives the scene, pose, or context, while the LoRA adapter keeps the output faithful to the reference. The result is fast, low-cost personalization of a general-purpose diffusion model without the cost of training or storing a full model copy per subject.</p>
+
+          <h4 style="margin-top:26px;">Training pipeline (LoRA fine-tuning, per subject)</h4>
+          <div class="pipeline" aria-hidden="true">
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">01</span><div class="p-node"></div><span class="p-label">Reference set</span><span class="p-sub">Collect + curate images</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">02</span><div class="p-node"></div><span class="p-label">Preprocess</span><span class="p-sub">Crop/resize + auto-caption</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">03</span><div class="p-node"></div><span class="p-label">Latent encode</span><span class="p-sub">VAE, base model frozen</span></div>
+            <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">04</span><div class="p-node"></div><span class="p-label">Inject LoRA</span><span class="p-sub">Low-rank adapters on UNet attention</span></div>
+            <div class="p-stage is-key"><span class="p-num">05</span><div class="p-node"></div><span class="p-label">Fine-tune</span><span class="p-sub">Train adapter weights only</span></div>
+          </div>
+
+          <h4 style="margin-top:26px;">Generation pipeline (inference, per prompt)</h4>
+          <div class="pipeline" aria-hidden="true">
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">01</span><div class="p-node"></div><span class="p-label">Prompt in</span><span class="p-sub">Text prompt + chosen LoRA</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">02</span><div class="p-node"></div><span class="p-label">Text encode</span><span class="p-sub">CLIP text encoder</span></div>
+            <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">03</span><div class="p-node"></div><span class="p-label">Merge adapters</span><span class="p-sub">LoRA weights → base UNet</span></div>
+            <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">04</span><div class="p-node"></div><span class="p-label">Diffuse</span><span class="p-sub">Iterative denoising steps</span></div>
+            <div class="p-stage"><span class="p-num">05</span><div class="p-node"></div><span class="p-label">Decode</span><span class="p-sub">VAE → final image</span></div>
+          </div>
+          <p class="note" style="margin-top:20px;"></p>
         </div>
       </div>
     </div>
@@ -213,7 +231,7 @@
         <div>
           <div class="proj-title-row"><h3>Multi-School Management Platform</h3></div>
           <div class="proj-stack mono">Full-stack web app</div>
-          <p class="proj-desc">A platform for running multiple schools at once — classes, curriculum, teachers, and students on one side, with parents able to follow their child's activity, curriculum, assignments, and assessments on the other.</p>
+          <p class="proj-desc">A platform for running multiple schools at once managing classes, curriculum, teachers, and students on one side, with parents able to follow their child's activity, curriculum, assignments, and assessments on the other.</p>
         </div>
         <div class="proj-chevron" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -228,7 +246,7 @@
           </div>
           <h4>Core structure</h4>
           <p class="note">Schools → classes → curriculum, with teachers assigned to subjects, topics, and classes. Students are tracked by subject, class, assignment, and assessment. Parents get a dedicated view into their child's curriculum, assignments, and assessment history.</p>
-          <p class="note" style="margin-top:14px;">More detail (tech stack, scale, and screenshots) can be added here — let me know what you'd like to feature.</p>
+          <p class="note" style="margin-top:14px;"></p>
         </div>
       </div>
     </div>
@@ -252,7 +270,7 @@
               <source src="projects/college-prep-agent/media/demo.mp4" type="video/mp4">
             </video>
           </div>
-          <p class="note">Details on scope, architecture, and the specific college-prep tasks this agent handles can be added here — let me know what you'd like to feature.</p>
+          <p class="note"></p>
         </div>
       </div>
     </div>
