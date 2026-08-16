@@ -181,7 +181,56 @@
       </div>
     </div>
 
-    <!-- Project 2: LoRA image gen -->
+    <!-- Project 2: Document Search -->
+    <div class="proj" data-proj>
+      <div class="proj-head" data-proj-toggle>
+        <div>
+          <div class="proj-title-row"><h3>AI Document Search — DriveLens</h3></div>
+          <div class="proj-stack mono">React · FastAPI · Celery/Redis · Postgres · Solr 9 (HNSW) · MinIO · Tika · multilingual-e5-large · BGE Reranker · Helm/K8s</div>
+          <p class="proj-desc">Connect a Google Drive (or any storage drive) and search every document in it by meaning, not just keywords — a multi-tenant hybrid search platform with an ACL-aware index that stays true as Drive changes.</p>
+        </div>
+        <div class="proj-chevron" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-body-inner">
+          <div class="proj-media proj-media--embed">
+            <div class="embed-16x9">
+              <!-- TODO: replace REPLACE_WITH_VIDEO_ID with the YouTube video id -->
+              <iframe src="https://www.youtube.com/embed/REPLACE_WITH_VIDEO_ID" title="AI Document Search (DriveLens) — demo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          </div>
+          <h4>What it does</h4>
+          <p class="note">A Google Drive (or any storage drive) semantic document search platform. You sign in with Google, pick folders (or the whole Drive), and a seven-stage pipeline crawls, extracts, chunks, embeds, and indexes every document into Apache Solr. Search then runs two arms in parallel — a BM25/edismax lexical arm and an HNSW dense-vector arm over 1024-dim multilingual E5 embeddings — fused with Reciprocal Rank Fusion, so an English query surfaces the right Spanish or French passage. Every query is forced through a tenant/ACL chokepoint that refuses to run unscoped, and mirrored Drive permissions mean a user only ever sees what they can actually open. Drive edits, deletions, and permission changes propagate back into the index through a <em>changes.list</em> cursor, so the index stays true over time. The whole thing ships as a multi-tenant monorepo with a validated Helm chart, non-root read-only containers, and KMS-backed key management.</p>
+
+          <h4 style="margin-top:26px;">Indexing workflow (7 stages, per document)</h4>
+          <div class="pipeline" aria-hidden="true">
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">01</span><div class="p-node"></div><span class="p-label">Discover</span><span class="p-sub">Drive crawl + changes cursor</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">02</span><div class="p-node"></div><span class="p-label">Fetch</span><span class="p-sub">Download → MinIO blobs</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">03</span><div class="p-node"></div><span class="p-label">Extract</span><span class="p-sub">Tika: text + metadata</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">04</span><div class="p-node"></div><span class="p-label">Chunk</span><span class="p-sub">Sentence-safe boundaries</span></div>
+            <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">05</span><div class="p-node"></div><span class="p-label">Embed</span><span class="p-sub">multilingual-e5-large, 1024-d</span></div>
+            <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">06</span><div class="p-node"></div><span class="p-label">Index</span><span class="p-sub">Solr: HNSW + BM25, ACL mirrored</span></div>
+            <div class="p-stage"><span class="p-num">07</span><div class="p-node"></div><span class="p-label">Verify</span><span class="p-sub">Reconcile, zero orphan chunks</span></div>
+          </div>
+          <p class="note" style="margin-top:20px;">Every file reaches a terminal state — a corrupt PDF lands in <em>skipped</em> and is never retried, a persistent transient failure dead-letters after N attempts, and killing a worker mid-crawl loses nothing because fetch, extract, and chunk are all idempotent. Cheap changes stay cheap: a rename, move, or re-share re-enters the pipeline at <em>index</em> and reuses the chunks and vectors already stored, so only a genuinely new revision pays for a re-download and a re-embed.</p>
+
+          <h4 style="margin-top:26px;">Query workflow (hybrid search, per request)</h4>
+          <div class="pipeline" aria-hidden="true">
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">01</span><div class="p-node"></div><span class="p-label">Scope</span><span class="p-sub">Tenant + ACL chokepoint</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">02</span><div class="p-node"></div><span class="p-label">Text → vector</span><span class="p-sub">E5 query-prefixed encode</span></div>
+            <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">03</span><div class="p-node"></div><span class="p-label">BM25 + KNN</span><span class="p-sub">edismax + HNSW, parallel</span></div>
+            <div class="p-stage is-key"><div class="p-line"></div><span class="p-num">04</span><div class="p-node"></div><span class="p-label">RRF fusion</span><span class="p-sub">Two arms merged, k=10</span></div>
+            <div class="p-stage"><div class="p-line"></div><span class="p-num">05</span><div class="p-node"></div><span class="p-label">Rerank</span><span class="p-sub">BGE cross-encoder (GPU, optional)</span></div>
+            <div class="p-stage"><span class="p-num">06</span><div class="p-node"></div><span class="p-label">Results</span><span class="p-sub">Facets + highlights, p95 &lt;300ms</span></div>
+          </div>
+          <p class="note" style="margin-top:20px;">Why it's interesting: the retrieval config is measured, not assumed. A purpose-built evaluation corpus (12 subjects × 4 documents, vocabulary appearing nowhere else, hidden among ~2,000 decoys) with declared ground truth showed keyword search scoring 0.971 nDCG when the query shares words with the document and <strong>0.033 when it doesn't</strong> — that gap is the entire case for carrying a vector index. The same harness moved RRF's <em>k</em> from the literature's 60 to 10 on evidence (ndcg@10 0.708 → 0.763), and a regression gate now fails the build if a chunking tweak or a dropped E5 prefix quietly makes search worse. Degradation is graceful too: if the reranker or the vector arm is down, results come back fused and flagged rather than as an error.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3: LoRA image gen -->
     <div class="proj" data-proj>
       <div class="proj-head" data-proj-toggle>
         <div>
@@ -225,7 +274,7 @@
       </div>
     </div>
 
-    <!-- Project 3: School management app -->
+    <!-- Project 4: School management app -->
     <div class="proj" data-proj>
       <div class="proj-head" data-proj-toggle>
         <div>
@@ -251,7 +300,7 @@
       </div>
     </div>
 
-    <!-- Project 4: College prep agent -->
+    <!-- Project 5: College prep agent -->
     <div class="proj" data-proj>
       <div class="proj-head" data-proj-toggle>
         <div>
