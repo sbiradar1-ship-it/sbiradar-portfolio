@@ -235,6 +235,51 @@ section.alt .case{background:var(--bg);}
 .case-grid .col p{font-size:13.8px; margin:6px 0 0; color:var(--ink);}
 
 /* ---------- personal projects ---------- */
+/* --- Suite summary: the six aiAppsSite products, above the project list --- */
+.suite{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:30px; margin-bottom:28px;
+}
+.suite-lede{
+  font-size:16px; line-height:1.65; color:var(--ink);
+  padding-bottom:22px; border-bottom:1px solid var(--line);
+}
+.suite-lede a{color:var(--teal-deep); text-decoration:none; border-bottom:1px solid rgba(30,138,130,0.35);}
+.suite-lede a:hover{border-bottom-color:var(--teal);}
+.suite-apps{
+  display:grid; grid-template-columns:1fr 1fr; gap:26px 34px;
+  padding:26px 0;
+}
+.suite-app h4{
+  font-size:15px; letter-spacing:.01em; color:var(--navy); margin-bottom:7px;
+}
+/* The accent rule ties each product back to the eyebrow dots used elsewhere. */
+.suite-app h4::before{
+  content:""; display:inline-block; width:7px; height:7px; border-radius:50%;
+  background:var(--amber); margin-right:9px; vertical-align:middle;
+}
+.suite-app p{
+  color:var(--ink-muted); font-size:14.2px; line-height:1.62;
+}
+.suite-close{
+  color:var(--ink-muted); font-size:14.4px; line-height:1.62;
+  padding-top:22px; border-top:1px solid var(--line);
+}
+.suite-cost{
+  display:flex; align-items:center; gap:16px; margin-top:18px;
+  padding:16px 18px; border-radius:10px;
+  background:rgba(226,150,60,0.08); border:1px solid rgba(226,150,60,0.30);
+  color:var(--ink); font-size:14.4px; line-height:1.55;
+}
+.suite-cost-fig{
+  font-size:26px; font-weight:600; color:var(--amber-deep); line-height:1; flex:none;
+}
+@media (max-width:760px){
+  .suite{padding:22px;}
+  .suite-apps{grid-template-columns:1fr; gap:22px; }
+  .suite-cost{flex-direction:column; align-items:flex-start; gap:8px;}
+}
+
 .proj{
   background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
   margin-bottom:20px; overflow:hidden;

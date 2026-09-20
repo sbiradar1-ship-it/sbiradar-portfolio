@@ -182,6 +182,57 @@
       <p>Full-stack, hands-on builds — from GPU-backed ML pipelines to product experiences for real families and students. Click a project to see how it's built.</p>
     </div>
 
+    <!-- Suite summary: the six aiAppsSite products -->
+    <div class="suite">
+      <p class="suite-lede">
+        I designed, built and run a suite of six production AI applications at
+        <a href="https://www.aiappssite.com" target="_blank" rel="noopener noreferrer">https://www.aiAppsSite.com</a>,
+        all built and operated end to end, from model selection and service architecture through
+        deployment, access control and observability. All of these apps are available upon request.
+      </p>
+
+      <div class="suite-apps">
+        <div class="suite-app">
+          <h4>Speakly</h4>
+          <p>Turns a whole book into natural narration in a voice you choose, with nothing to install. A FastAPI web tier and a queue-backed worker split the work so an hour-long synthesis never blocks the request path, and rendering runs on a GPU service on a separate machine reached over a Cloudflare tunnel; long documents are chunked for multilingual synthesis, and personal API keys let other applications narrate through a user's own account.</p>
+        </div>
+        <div class="suite-app">
+          <h4>Presently</h4>
+          <p>Turns a slide deck and its script into a narrated video, narrating through the user's own Speakly account. It finds the moment each slide is announced by transcribing the audio with Whisper on the GPU and aligning the transcript word-by-word against the script &mdash; matching titles as well as numbers, so a slide still lands correctly when the recogniser mishears its number &mdash; then renders with LibreOffice and FFmpeg using NVENC; every job is a database row, so a long narration survives a restart and resumes where it stopped.</p>
+        </div>
+        <div class="suite-app">
+          <h4>Vidly</h4>
+          <p>Lets you describe the moment you're looking for and jump straight to it, instead of scrubbing through hours of footage. Uploaded video is segmented, transcribed and captioned on a local GPU and indexed as embeddings in Solr, with every library scoped privately to its owner and no video content ever leaving the hardware.</p>
+        </div>
+        <div class="suite-app">
+          <h4>Docly</h4>
+          <p>Searches Google Drive by meaning rather than keywords, so you can find a document you remember without recalling its exact wording. A React and TanStack single-page app fronts a FastAPI backend with Postgres, Redis, Solr, MinIO and Tika, plus separate embedding and OCR services and Celery workers, deployable by Docker Compose or Helm.</p>
+        </div>
+        <div class="suite-app">
+          <h4>Schoolly</h4>
+          <p>A role-based learning platform for schools and exam-prep centres, covering curriculum delivery, assignments and assessments with dashboards for admins, teachers, students and parents. It's built in Next.js and TypeScript over Prisma and Postgres on top of AgentFlow, an agentic runtime I wrote in which the entry point is a goal rather than a message: goals are planned into a validated DAG, executed under policy enforcement, gated on human approval before anything leaves the system, and streamed from an append-only event log.</p>
+        </div>
+        <div class="suite-app">
+          <h4>Testly</h4>
+          <p>Gives students configurable practice tests with official-format question banks and AI-assisted feedback that points at what to study next, serving students, parents, teachers and admins alike. It runs a FastAPI backend with a separate ingestion service over Postgres, Redis and MinIO, uses a locally-hosted LLM via Ollama so question content stays in-house, and is instrumented with Prometheus, Grafana and Loki.</p>
+        </div>
+      </div>
+
+      <p class="suite-close">
+        All six share one operational pattern: a public Ubuntu front door terminating a Cloudflare
+        tunnel with Cloudflare Access authenticating every visitor at the edge, proxying to backends
+        where the GPU and all state live on a private host &mdash; so inference data never leaves the
+        network, and each service is reachable only through the edge. Service-to-service calls between
+        products are authenticated with scoped Access service tokens.
+      </p>
+
+      <p class="suite-cost">
+        <span class="suite-cost-fig mono">$10</span>
+        <span>Total spend to build and run all six &mdash; the cost of registering the domain. Everything else is
+        Cloudflare's free tier, open-source technologies and my own desktops.</span>
+      </p>
+    </div>
+
     <!-- Project 1: Video Search -->
     <div class="proj" data-proj>
       <div class="proj-head" data-proj-toggle>
