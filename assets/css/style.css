@@ -244,6 +244,8 @@ section.alt .case{background:var(--bg);}
   font-size:16px; line-height:1.65; color:var(--ink);
   padding-bottom:22px; border-bottom:1px solid var(--line);
 }
+.suite-lede:last-child{padding-bottom:0; border-bottom:0;}
+.suite > h3{margin:0 0 12px;}
 .suite-lede a{color:var(--teal-deep); text-decoration:none; border-bottom:1px solid rgba(30,138,130,0.35);}
 .suite-lede a:hover{border-bottom-color:var(--teal);}
 .suite-apps{
