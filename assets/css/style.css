@@ -174,7 +174,10 @@ section.alt{background:var(--panel);border-top:1px solid var(--line);border-bott
 #projects .section-head{max-width:none;}
 #work .section-head{margin-bottom:12px;}
 #work .stat-row{margin-top:0;}
-#projects{padding-bottom:28px;}
+section#work{padding-bottom:28px;}
+#work .case:last-child{margin-bottom:0;}
+#projects{padding-top:32px;padding-bottom:28px;}
+#projects .section-head{margin-bottom:16px;}
 #projects .proj:last-child{margin-bottom:0;}
 section#skills{padding-top:32px;}
 .section-head .eyebrow{margin-bottom:12px;}
@@ -245,7 +248,7 @@ section.alt .case{background:var(--bg);}
 /* --- Suite summary: the six aiAppsSite products, above the project list --- */
 .suite{
   background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-  padding:30px; margin-bottom:28px;
+  padding:22px 30px 30px; margin-bottom:16px;
 }
 .suite-lede{
   font-size:16px; line-height:1.65; color:var(--ink);
