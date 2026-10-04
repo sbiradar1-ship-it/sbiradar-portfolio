@@ -254,7 +254,7 @@ section.alt .case{background:var(--bg);}
 .suite-lede a:hover{border-bottom-color:var(--teal);}
 .suite-apps{
   display:grid; grid-template-columns:1fr 1fr; gap:26px 34px;
-  padding:14px 0 26px;
+  padding:14px 0 14px;
 }
 .suite-app h4{
   font-size:15px; letter-spacing:.01em; color:var(--navy); margin-bottom:7px;
