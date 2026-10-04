@@ -171,6 +171,7 @@ section{padding:76px 0;}
 section#work{padding-top:32px;}
 section.alt{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .section-head{margin-bottom:44px;max-width:640px;}
+#projects .section-head{max-width:none;}
 .section-head .eyebrow{margin-bottom:12px;}
 .section-head h2{font-size:clamp(26px,3.4vw,34px);}
 .section-head h2 .h2-sub{display:block;margin-top:8px;font-size:17px;font-weight:500;line-height:1.4;}
