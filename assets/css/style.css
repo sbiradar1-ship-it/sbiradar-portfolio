@@ -307,10 +307,11 @@ section.alt .case{background:var(--bg);}
 .proj-desc{color:var(--ink-muted);font-size:14.6px;margin-top:8px;max-width:640px;}
 .proj-chevron{
   flex:none; width:26px;height:26px;border-radius:50%;
-  border:1px solid var(--line); display:flex;align-items:center;justify-content:center;
-  transition:transform .2s ease;
+  background:#007bff; color:#fff;
+  display:flex;align-items:center;justify-content:center;
 }
-.proj.is-open .proj-chevron{transform:rotate(45deg);}
+.proj-chevron line:first-child{transition:opacity .2s ease;}
+.proj.is-open .proj-chevron line:first-child{opacity:0;}
 .proj-body{
   max-height:0; overflow:hidden; transition:max-height .35s ease;
   border-top:1px solid transparent;
