@@ -100,7 +100,7 @@ header.nav{
 }
 .hero h1 .hl{color:var(--teal-deep);}
 .hero p.lede{
-  max-width:600px;
+  max-width:none;
   color:var(--ink-muted);
   font-size:17px;
   margin-top:20px;
