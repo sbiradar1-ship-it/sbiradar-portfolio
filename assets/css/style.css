@@ -179,7 +179,7 @@ section#work{padding-bottom:28px;}
 #projects{padding-top:32px;padding-bottom:28px;}
 #projects .section-head{margin-bottom:16px;}
 #projects .proj:last-child{margin-bottom:0;}
-section#skills{padding-top:32px;}
+section#skills{padding-top:32px;padding-bottom:32px;}
 .section-head .eyebrow{margin-bottom:12px;}
 .section-head h2{font-size:clamp(26px,3.4vw,34px);}
 .section-head h2 .h2-sub{display:block;margin-top:8px;font-size:17px;font-weight:500;line-height:1.4;}
@@ -362,7 +362,7 @@ section.alt .chip{background:var(--bg);}
 
 /* ---------- footer ---------- */
 footer{
-  background:var(--navy); color:#EAF1F0; padding:64px 0 40px;
+  background:var(--navy); color:#EAF1F0; padding:32px 0 40px;
 }
 footer h2{color:#fff;font-size:clamp(24px,3vw,32px);}
 footer p{color:#A9C0C2;max-width:480px;margin-top:12px;font-size:15px;}
