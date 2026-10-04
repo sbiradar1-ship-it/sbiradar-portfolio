@@ -72,7 +72,7 @@ header.nav{
 /* ---------- hero ---------- */
 .hero{
   position:relative;
-  padding:48px 0 24px;
+  padding:16px 0 24px;
   overflow:hidden;
 }
 .hero .grid-bg{
@@ -173,6 +173,7 @@ section.alt{background:var(--panel);border-top:1px solid var(--line);border-bott
 .section-head{margin-bottom:44px;max-width:640px;}
 .section-head .eyebrow{margin-bottom:12px;}
 .section-head h2{font-size:clamp(26px,3.4vw,34px);}
+.section-head h2 .h2-sub{display:block;margin-top:8px;font-size:17px;font-weight:500;line-height:1.4;}
 .section-head p{color:var(--ink-muted);margin-top:10px;font-size:15.5px;}
 
 /* ---------- pipeline strip (signature element) ---------- */
