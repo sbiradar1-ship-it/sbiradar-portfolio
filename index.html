@@ -171,6 +171,24 @@
         <div class="col"><div class="k">Outcome</div><p>Cut system redundancy by 67% and accelerated time-to-market for new features.</p></div>
       </div>
     </div>
+
+    <div class="case">
+      <div class="case-top">
+        <h3>AI Learning Platform</h3>
+        <span class="tag">Product strategy · AI platform</span>
+      </div>
+      <p class="desc">AI-powered learning platform for schools and exam-prep centers, combining curriculum, assessments, personalized learning, AI search, recommendations, and agentic workflows.</p>
+      <div class="case-grid">
+        <div class="col"><div class="k">Product &amp; Learning Platform</div><p>The platform manages the complete learning workflow from <strong>schools → classes → subjects → topics → curriculum → assignments → assessments → progress</strong>.</p></div>
+        <div class="col"><div class="k">AI-Powered Experiences</div><p><strong>AI Search &amp; Recommendations:</strong> Personalized search and recommendations based on learner intent, behavior, preferences, and content relevance. <strong>AI Copilot:</strong> RAG-powered real-time learning assistance. <strong>Personalized Learning:</strong> Recommendations driven by performance, activity, and context. <strong>Agentic Workflows:</strong> Governed event-driven multi-agent orchestration for curriculum planning and study-task management.</p></div>
+        <div class="col"><div class="k">Platform Architecture</div><p>Built on <strong>Next.js, TypeScript, Prisma, and PostgreSQL</strong>, with AgentFlow providing the agentic execution layer. <strong>Goal → Plan → Validated DAG → Policy Enforcement → Human Approval → Execution → Event Stream</strong>.</p></div>
+      </div>
+      <div class="case-grid" style="margin-top:18px;">
+        <div class="col"><div class="k">Role</div><p>Product leadership across platform design, AI workflow strategy, multi-role experience design, and rollout planning for administrators, teachers, students, and parents.</p></div>
+        <div class="col"><div class="k">Approach</div><p>Focused on a reusable foundation for secure, personalized, and agentic learning workflows rather than isolated AI features, with policy enforcement and human approval built into the system.</p></div>
+        <div class="col"><div class="k">Outcome</div><p>Created a scalable learning platform foundation enabling personalized learning journeys, AI-guided support, and governed workflow automation across multi-school environments.</p></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -228,8 +246,8 @@
           <p>Searches Google Drive by meaning rather than keywords, so you can find a document you remember without recalling its exact wording. A React and TanStack single-page app fronts a FastAPI backend with Postgres, Redis, Solr, MinIO and Tika, plus separate embedding and OCR services and Celery workers, deployable by Docker Compose or Helm.</p>
         </div>
         <div class="suite-app">
-          <h4>Schoolly</h4>
-          <p>A role-based learning platform for schools and exam-prep centres, covering curriculum delivery, assignments and assessments with dashboards for admins, teachers, students and parents. It's built in Next.js and TypeScript over Prisma and Postgres on top of AgentFlow, an agentic runtime I wrote in which the entry point is a goal rather than a message: goals are planned into a validated DAG, executed under policy enforcement, gated on human approval before anything leaves the system, and streamed from an append-only event log.</p>
+          <h4>Castly</h4>
+          <p>Castly is a Python-based app for organizing, validating, and uploading finished video folders to YouTube while keeping a record of each upload and alerting on failures. It scans media folders for matching video, title/description, and thumbnail files, lets users review and select destinations/playlists, and uploads content with retry and resume support. The project is designed for multi-user environments, with per-user folder access, destination-specific YouTube auth, and admin controls.</p>
         </div>
         <div class="suite-app">
           <h4>Testly</h4>
@@ -384,32 +402,6 @@
             <div class="p-stage"><span class="p-num">05</span><div class="p-node"></div><span class="p-label">Decode</span><span class="p-sub">VAE → final image</span></div>
           </div>
           <p class="note" style="margin-top:20px;"></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 4: School management app -->
-    <div class="proj" data-proj>
-      <div class="proj-head" data-proj-toggle>
-        <div>
-          <div class="proj-title-row"><h3>Multi-School Management Platform</h3></div>
-          <div class="proj-stack mono">Full-stack web app</div>
-          <p class="proj-desc">A platform for running multiple schools at once managing classes, curriculum, teachers, and students on one side, with parents able to follow their child's activity, curriculum, assignments, and assessments on the other.</p>
-        </div>
-        <div class="proj-chevron" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-body-inner">
-          <div class="proj-media" data-demo-video>
-            <video controls preload="metadata" muted playsinline poster="projects/school-platform/media/poster.jpg">
-              <source src="projects/school-platform/media/demo.mp4" type="video/mp4">
-            </video>
-          </div>
-          <h4>Core structure</h4>
-          <p class="note">Schools → classes → curriculum, with teachers assigned to subjects, topics, and classes. Students are tracked by subject, class, assignment, and assessment. Parents get a dedicated view into their child's curriculum, assignments, and assessment history.</p>
-          <p class="note" style="margin-top:14px;"></p>
         </div>
       </div>
     </div>

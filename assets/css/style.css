@@ -297,9 +297,10 @@ section.alt .case{background:var(--bg);}
   margin-bottom:20px; overflow:hidden;
 }
 .proj-head{
-  padding:26px 30px; display:flex; justify-content:space-between; gap:20px; align-items:flex-start; flex-wrap:wrap;
+  padding:26px 30px; display:flex; justify-content:space-between; gap:20px; align-items:flex-start;
   cursor:pointer;
 }
+.proj-head > div:first-child{flex:1 1 auto; min-width:0;}
 .proj-head:hover{background:rgba(16,24,38,0.02);}
 .proj-title-row{display:flex;align-items:center;gap:12px;}
 .proj-title-row h3{font-size:19px;}
@@ -307,8 +308,8 @@ section.alt .case{background:var(--bg);}
 .proj-desc{color:var(--ink-muted);font-size:14.6px;margin-top:8px;max-width:640px;}
 .proj-chevron{
   flex:none; width:26px;height:26px;border-radius:50%;
-  background:#007bff; color:#fff;
-  display:flex;align-items:center;justify-content:center;
+  background:#007bff; color:#fff; margin-top:2px;
+  display:flex;align-items:center;justify-content:center; align-self:flex-start;
 }
 .proj-chevron line:first-child{transition:opacity .2s ease;}
 .proj.is-open .proj-chevron line:first-child{opacity:0;}
